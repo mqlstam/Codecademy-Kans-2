@@ -110,7 +110,6 @@ public class CourseController {
             } else {
                 System.out.println("No course selected");
             }
-            stage.close();
         });
 
         delete.setOnAction(e -> {
