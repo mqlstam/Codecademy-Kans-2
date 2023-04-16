@@ -100,7 +100,7 @@ public class MainMenu extends Application {
     }
     public static void display(){
         Stage stage = new Stage();
-        stage.setTitle("Anhtuan Nguyen(2192526), Luuk beks(2192527), Miquel Stam(2192528)");
+        stage.setTitle("Anhtuan Nguyen(2192526), Luuk beks(2192527), Miquel Stam(2159021), Melanie Krischan(2196194)");
         stage.setWidth(800);
         stage.setHeight(700);
         stage.setResizable(false);
