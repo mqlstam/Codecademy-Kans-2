@@ -13,7 +13,7 @@ public interface CourseDAO {
     void updateCourse(Course course);
     void deleteCourse(Course course) throws Exception;
     List<String> getTop3CertifiedCourses();
-    public List<String> getRecommendedCourses(String selectedCourse);
-    public int getNumCompletedCourses(String courseName);
-    public List<Course> getCoursesByStudentEmail(String emailAddress);
+    List<String> getRecommendedCourses(String selectedCourse);
+    int getNumCompletedCourses(String courseName);
+    List<Course> getCoursesByStudentEmail(String emailAddress);
 }

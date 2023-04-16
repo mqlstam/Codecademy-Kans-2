@@ -13,6 +13,6 @@ public interface ModuleDAO {
     void addModule(Module module);
     void updateModule(Module module);
     void deleteModule(int followNumber);
-    public List<ModuleProgress> getAverageProgressPerModule(String courseName, String studentEmail);
-    public List<ModuleProgress> getAverageProgressPerModuleAllStudents(String courseName);
+    List<ModuleProgress> getAverageProgressPerModule(String courseName, String studentEmail);
+    List<ModuleProgress> getAverageProgressPerModuleAllStudents(String courseName);
 }
