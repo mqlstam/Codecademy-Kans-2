@@ -6,7 +6,15 @@ import org.junit.Test;
 
 import com.codecademy.logic.Logic;
 
+/**
+ * This class tests the methods in the Logic class for correctness.
+ */
 public class LogicTest {
+
+     /**
+     * Tests the dateTool method for a date that is out of range in a leap year (February 30, 2022).
+     * Expects the method to return false.
+     */
     @Test
     public void testDateFebInLeapYearOutOfRange(){
         //arrange
@@ -18,6 +26,11 @@ public class LogicTest {
         //assert
         assertEquals(false, valid);
     }
+
+    /**
+     * Tests the dateTool method for a date that is within range in a leap year (February 12, 2022).
+     * Expects the method to return true.
+     */
     @Test
     public void testDateFebInLeapYearInRange(){
         //arrange
@@ -29,6 +42,11 @@ public class LogicTest {
         //assert
         assertEquals(true, valid);
     }
+
+     /**
+     * Tests the dateTool method for a date that is within range in a non-leap year (November 23, 2022).
+     * Expects the method to return true.
+     */
     @Test
     public void testDateNovInRange(){
         //arrange
@@ -41,6 +59,10 @@ public class LogicTest {
         assertEquals(true, valid);
     }
    
+     /**
+     * Tests the dateTool method for a date that is out of range in a non-leap year (April 31, 2006).
+     * Expects the method to return false.
+     */
     @Test
     public void testDateAprOutOfRange(){
         //arrange
@@ -53,6 +75,10 @@ public class LogicTest {
         assertEquals(false, valid);
     }
 
+    /**
+     * Tests the mailTool method for an email address without an "@" symbol.
+     * Expects the method to return false.
+     */
     @Test
     public void validateMailAddressReturnsFalseNoAt(){
         //arrange
@@ -64,6 +90,10 @@ public class LogicTest {
         assertEquals(false, result);
     }
 
+    /**
+     * Tests the mailTool method for an email address without a mailbox.
+     * Expects the method to return false.
+     */
     @Test
     public void validateMailAddressReturnsFalseNoMailbox(){
         //arrange
@@ -74,7 +104,11 @@ public class LogicTest {
         //assert
         assertEquals(false, result);
     }
-
+    
+    /**
+     * Tests the mailTool method for an email address without a subdomain TLD delimiter.
+     * Expects the method to return true.
+     */
     @Test
     public void validateMailAddressReturnsTrueNoSubdomainTLDDelimiter(){
         //arrange
@@ -86,6 +120,10 @@ public class LogicTest {
         assertEquals(true, result);
     }
 
+    /**
+     * Tests the mailTool method for an email address without a subdomain.
+     * Expects the method to return false.
+     */
     @Test
     public void validateMailAddressReturnsFalseNoSubdomain(){
         //arrange
@@ -97,6 +135,10 @@ public class LogicTest {
         assertEquals(false, result);
     }
 
+    /**
+     * Tests the mailTool method for an email address without a TLD.
+     * Expects the method to return false.
+     */
     @Test
     public void validateMailAddressReturnsFalseNoTLD(){
         //arrange
@@ -108,6 +150,10 @@ public class LogicTest {
         assertEquals(false, result);
     }
 
+    /**
+     * Tests the mailTool method for an email address with a correct input.
+     * Expects the method to return true.
+     */
     @Test
     public void validateMailAddressReturnsTrue(){
         //arrange
@@ -119,6 +165,9 @@ public class LogicTest {
         assertEquals(true, result);
     }
 
+    /**
+     * tests grade validation for a valid grade
+     */
     @Test
     public void testIsValidGradeReturnsTrue(){
         //arrange
@@ -130,6 +179,9 @@ public class LogicTest {
         assertEquals(true, result);
     }
 
+    /**
+     * tests grade validation for a grade below 0
+     */
     @Test
     public void testIsValidGradeReturnsFalseBelowZero(){
         //arrange
@@ -141,6 +193,9 @@ public class LogicTest {
         assertEquals(false, result);
     }
 
+    /**
+     * tests grade validation for a grade above 10
+     */
     @Test
     public void testIsValidGradeReturnsFalseAboveTen(){
         //arrange
@@ -152,7 +207,9 @@ public class LogicTest {
         assertEquals(false, result);
     }
 
-
+    /**
+     * tests postcode validation for a postcode that is null
+     */
     @Test (expected = NullPointerException.class)
     public void nullPointerExceptionPostalCode (){
          //arrange
@@ -165,6 +222,10 @@ public class LogicTest {
         validator.postalCode(null);
         
     }
+
+    /**
+     * tests postcode validation for a postcode that is too short
+     */
     @Test (expected = IllegalArgumentException.class)
     public void notEnoughNumbers (){
         //arrange
@@ -176,6 +237,10 @@ public class LogicTest {
         //assert
         validator.postalCode("546GE");
    }
+
+   /*tests postcode with rightinput
+    * returns true
+    */
    @Test
    public void rightInput (){
      //arrange
@@ -187,6 +252,9 @@ public class LogicTest {
      //assert
      assertEquals("1234 AB", valid);
 }
+
+/*tests postcode with wrong input*/
+
     @Test(expected = IllegalArgumentException.class)
     public void differentInput (){
      //arrange
