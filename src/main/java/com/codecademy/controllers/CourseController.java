@@ -1,4 +1,5 @@
 package com.codecademy.controllers;
+
 import com.codecademy.MainMenu;
 import com.codecademy.dao.CourseDAO;
 import com.codecademy.dao.CourseDAOImpl;
@@ -29,9 +30,28 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * CourseController class is responsible for managing the course overview and
+ * handling user input for adding, editing, and deleting courses.
+ * The class utilizes TableView and TableColumn to display courses stored in a
+ * database, and buttons for adding, editing, deleting, and returning to the
+ * main menu.
+ */
+
 public class CourseController {
 
-    public static void display(){
+    /**
+     * display method displays the course overview stage, which contains a TableView
+     * of courses, and buttons for adding, editing, deleting, and returning to the
+     * main menu.
+     * The method retrieves course data from the database and populates the
+     * TableView with TableColumn objects.
+     * The user can interact with the TableView by double-clicking a row, which
+     * opens a statistics dialog.
+     */
+
+    public static void display() {
         DbConnection dbConnection = new DbConnection();
         CourseDAO courseDAO = new CourseDAOImpl(dbConnection);
         Stage stage = new Stage();
@@ -41,7 +61,7 @@ public class CourseController {
         stage.setResizable(false);
 
         Label moduleOverview = new Label("Course overview");
-        moduleOverview.setFont(Font.font("Arial",FontWeight.BOLD ,30));
+        moduleOverview.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 
         FlowPane root = new FlowPane();
 
@@ -60,7 +80,8 @@ public class CourseController {
         courseTag.setCellValueFactory(new PropertyValueFactory<Course, String>("CourseTag"));
 
         TableColumn<Course, String> courseDifficulty = new TableColumn<>("Course Difficulty");
-        courseDifficulty.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDifficulty().toString()));
+        courseDifficulty.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getDifficulty().toString()));
         table.setPrefWidth(700);
         table.getColumns().addAll(courseName, courseTopic, courseIntroText, courseTag, courseDifficulty);
 
@@ -71,26 +92,26 @@ public class CourseController {
         Button back = new Button("Back");
 
         HBox hBox = new HBox();
-        
+
         hBox.getChildren().addAll(addCourse, modules, edit, delete, back);
         hBox.setSpacing(25);
 
         addCourse.setPrefSize(50, 30);
         modules.setPrefSize(80, 30);
         edit.setPrefSize(50, 30);
-        delete.setPrefSize(80,30);
+        delete.setPrefSize(80, 30);
         back.setPrefSize(50, 30);
         table.setEditable(false);
- 
+
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(moduleOverview, table, hBox);
 
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(vbox);
-        
+
         Scene scene = new Scene(root);
-        
+
         modules.setOnAction(e -> {
             ModuleController.display();
             stage.close();
@@ -99,7 +120,7 @@ public class CourseController {
         addCourse.setOnAction(e -> {
             AddCourseController.display();
             stage.close();
-            
+
         });
 
         edit.setOnAction(e -> {
@@ -128,13 +149,11 @@ public class CourseController {
                     e1.printStackTrace();
                 }
                 stage.close();
-                display(); // refresh the TableView to reflect the changes            
+                display(); // refresh the TableView to reflect the changes
             } else {
                 System.out.println("No course selected");
             }
         });
-
-      
 
         back.setOnAction(e -> {
             MainMenu.display();

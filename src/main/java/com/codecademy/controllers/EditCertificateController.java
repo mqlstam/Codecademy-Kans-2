@@ -17,14 +17,33 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * The EditCertificateController class is responsible for handling the UI and
+ * logic for updating a Certificate object.
+ * It allows the user to enter a new grade and employee name for the selected
+ * certificate, and updates the database
+ * accordingly when the "update" button is clicked.
+ */
+
 public class EditCertificateController {
 
     private static Certificate certificate;
 
+    /**
+     * Constructor for the EditCertificateController class.
+     * 
+     * @param certificate the Certificate object that the user wants to edit
+     */
+
     public EditCertificateController(Certificate certificate) {
         this.certificate = certificate;
     }
-    
+
+    /**
+     * Displays the UI for editing a Certificate object.
+     * 
+     * @param certificate the Certificate object that the user wants to edit
+     */
     public static void display(Certificate certificate) {
         DbConnection dbConnection = new DbConnection();
         CertificateDAO certificateDAO = new CertificateDAOimpl(dbConnection);
@@ -50,7 +69,7 @@ public class EditCertificateController {
 
         Button back = new Button("Back");
         Button update = new Button("update");
-      
+
         HBox hBox = new HBox();
         hBox.getChildren().addAll(update, back);
         hBox.setSpacing(70);
@@ -59,12 +78,11 @@ public class EditCertificateController {
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(updateCertificatLabel, grade, employee, hBox);
-        
+
         vBox.setSpacing(25);
 
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(vBox);
-
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -72,7 +90,8 @@ public class EditCertificateController {
 
         update.setOnAction(e -> {
             double gradeValue = Double.parseDouble(grade.getText());
-            certificateDAO.updateCertificate(new Certificate(certificate.getCertificateID(), gradeValue, employee.getText()));
+            certificateDAO
+                    .updateCertificate(new Certificate(certificate.getCertificateID(), gradeValue, employee.getText()));
             stage.close();
             CertificateController.display();
         });

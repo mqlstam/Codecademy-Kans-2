@@ -23,9 +23,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * This class is responsible for controlling the "Edit Course" window, which
+ * allows the user to edit an existing course.
+ * It provides text fields and a choice box to edit the course name, topic,
+ * introduction text, tag, and difficulty level.
+ */
+
 public class EditCourseController {
     private static String courseDifficulty;
     private static int moduleId;
+
+    /**
+     * Displays the "Edit Course" window with the fields pre-populated with the
+     * course's existing data.
+     * 
+     * @param course the course to edit
+     */
     public static void display(Course course) {
         DbConnection dbConnection = new DbConnection();
         CourseDAO courseDAO = new CourseDAOImpl(dbConnection);
@@ -37,29 +51,22 @@ public class EditCourseController {
         stage.setResizable(false);
 
         FlowPane root = new FlowPane();
-        
+
         Scene scene = new Scene(root);
         Label courseLabel = new Label("Course");
         courseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
-        
+
         TextField courseName = new TextField();
         courseName.setText(course.getCourseName());
         courseName.setEditable(false);
-        // ChoiceBox<String> ModuleId = new ChoiceBox<>();
-        // ObservableList<String> ModuleIdList = moduleDAO.getModuleIds();
-        // ModuleId.getItems().addAll(ModuleIdList);
-        // ModuleId.getSelectionModel().selectedItemProperty().addListener((Observable, oldValue, newValue) -> {
-        //     moduleId = Integer.parseInt(newValue);
-        // });
-        // ModuleId.setValue(String.valueOf(course.getModuleId()));
-        
+
         TextField courseTopic = new TextField();
         courseTopic.setText(course.getCourseTopic());
         TextField courseIntroText = new TextField();
         courseIntroText.setText(course.getCourseIntroText());
         TextField courseTag = new TextField();
         courseTag.setText(course.getCourseTag());
-        
+
         ChoiceBox<String> difficulty = new ChoiceBox<>();
         ObservableList<String> difficultyList = FXCollections.observableArrayList("Beginner", "Advanced", "Expert");
         difficulty.getItems().addAll(difficultyList);
@@ -75,7 +82,8 @@ public class EditCourseController {
         Button back = new Button("Back");
         Button save = new Button("Save");
         save.setOnAction(e -> {
-            courseDAO.updateCourse(new Course(courseName.getText(), courseTopic.getText(), courseIntroText.getText(), courseTag.getText(), Difficulty.valueOf(courseDifficulty.toUpperCase())));
+            courseDAO.updateCourse(new Course(courseName.getText(), courseTopic.getText(), courseIntroText.getText(),
+                    courseTag.getText(), Difficulty.valueOf(courseDifficulty.toUpperCase())));
             stage.close();
             CourseController.display();
         });
@@ -89,8 +97,9 @@ public class EditCourseController {
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(courseLabel, courseName, courseTopic, courseIntroText, courseTag, difficulty, hBox);
-        // vBox.getChildren().addAll(courseLabel, courseName, ModuleId, courseTopic, courseIntroText, courseTag, difficulty, hBox);
-        
+        // vBox.getChildren().addAll(courseLabel, courseName, ModuleId, courseTopic,
+        // courseIntroText, courseTag, difficulty, hBox);
+
         vBox.setSpacing(25);
 
         root.setAlignment(Pos.CENTER);
@@ -104,5 +113,5 @@ public class EditCourseController {
         stage.setScene(scene);
         stage.show();
     }
-    
+
 }

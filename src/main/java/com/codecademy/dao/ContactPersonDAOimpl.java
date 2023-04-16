@@ -11,13 +11,32 @@ import com.codecademy.domain.ContactPerson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * 
+ * The ContactPersonDAOimpl class implements the ContactPersonDAO interface and
+ * provides methods to retrieve ContactPerson data
+ * 
+ * from the database.
+ */
 public class ContactPersonDAOimpl implements ContactPersonDAO {
     private DbConnection dbConnection;
 
+    /**
+     * 
+     * Constructor for ContactPersonDAOimpl class.
+     * 
+     * @param dbConnection an instance of DbConnection to connect to the database
+     */
     public ContactPersonDAOimpl(DbConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
 
+    /**
+     * 
+     * Retrieves all contact persons from the database.
+     * 
+     * @return an ObservableList of ContactPerson objects
+     */
     @Override
     public ObservableList<ContactPerson> getContactPersons() {
         try (Connection db = dbConnection.getConnection()) {
@@ -27,7 +46,8 @@ public class ContactPersonDAOimpl implements ContactPersonDAO {
             ObservableList<ContactPerson> list = FXCollections.observableArrayList();
 
             while (result.next()) {
-                list.add(new ContactPerson(result.getString("ContactPersonEmail"), result.getString("NameContactPerson")));
+                list.add(new ContactPerson(result.getString("ContactPersonEmail"),
+                        result.getString("NameContactPerson")));
             }
             return list;
         } catch (SQLException e) {
@@ -37,22 +57,4 @@ public class ContactPersonDAOimpl implements ContactPersonDAO {
         return null;
     }
 
-    @Override
-    public void addContactPerson(ContactPerson contactPerson) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addContactPerson'");
-    }
-
-    @Override
-    public void updateContactPerson(ContactPerson contactPerson) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateContactPerson'");
-    }
-
-    @Override
-    public void deleteContactPerson(ContactPerson contactPerson) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteContactPerson'");
-    }
-    
 }

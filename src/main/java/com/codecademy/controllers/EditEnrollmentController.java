@@ -23,8 +23,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+
+/**
+ * This class is responsible for displaying a form to edit an existing enrollment record in the database.
+ * It allows the user to update the student email and course name associated with the enrollment.
+ */
 public class EditEnrollmentController {
 
+
+     /**
+     * Displays a form to edit an existing enrollment record in the database.
+     * @param enrollment The enrollment object to be edited
+     */
     public static void display(Enrollment enrollment) {
         DbConnection dbConnection = new DbConnection();
         StudentDAO studentDAO = new StudentDAOImpl(dbConnection);

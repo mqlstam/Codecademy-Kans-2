@@ -30,7 +30,18 @@ import javafx.stage.Stage;
  */
 
 public class AddCertificateController {
-
+    /**
+     * 
+     * Displays the GUI     for adding a new certificate to the system.
+     * 
+     * Allows the user to enter the grade and employee name for the certificate, and
+     * save the certificate to the database.
+     * 
+     * Validates the entered grade to be between 1 and 10.
+     * 
+     * Uses the CertificateDAOimpl object to add the new certificate to the
+     * database.
+     */
     public static void display() {
 
         DbConnection dbConnection = new DbConnection();
@@ -72,7 +83,7 @@ public class AddCertificateController {
         save.setOnAction(e -> {
             double gradeValue = Double.parseDouble(grade.getText());
             Logic logic = new Logic();
-            if(logic.isValidGrade(gradeValue) == false) {
+            if (logic.isValidGrade(gradeValue) == false) {
                 grade.setText("Grade must be between 1 and 10");
                 return;
             }

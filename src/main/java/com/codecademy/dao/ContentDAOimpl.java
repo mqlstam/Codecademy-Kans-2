@@ -10,13 +10,32 @@ import com.codecademy.domain.Content;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * 
+ * The ContactPersonDAOimpl class implements the ContactPersonDAO interface
+ * 
+ * and provides methods for accessing contact person data from the database.
+ */
 public class ContentDAOimpl implements ContentDAO {
     private DbConnection dbConnection;
 
+    /**
+     * 
+     * Constructs a new ContactPersonDAOimpl object with the given DbConnection.
+     * 
+     * @param dbConnection the DbConnection to use
+     */
     public ContentDAOimpl(DbConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
-    
+
+    /**
+     * 
+     * Retrieves a list of all contact persons from the database.
+     * 
+     * @return an ObservableList of ContactPerson objects representing the contact
+     *         persons in the database
+     */
     @Override
     public ObservableList<Content> getContents() {
         try (Connection db = dbConnection.getConnection()) {
@@ -26,7 +45,8 @@ public class ContentDAOimpl implements ContentDAO {
             ObservableList<Content> list = FXCollections.observableArrayList();
 
             while (result.next()) {
-                list.add(new Content(result.getInt("ContentID"), result.getString("PublicationDate"), result.getString("Description"), result.getString("Status")));
+                list.add(new Content(result.getInt("ContentID"), result.getString("PublicationDate"),
+                        result.getString("Description"), result.getString("Status")));
             }
             return list;
         } catch (Exception e) {
@@ -35,25 +55,5 @@ public class ContentDAOimpl implements ContentDAO {
         }
         return null;
     }
-    
-    @Override
-    public void addContent(Content content) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addContent'");
-    }
 
-    @Override
-    public void updateContent(Content content) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateContent'");
-    }
-
-    @Override
-    public void deleteContent(Content content) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteContent'");
-    }
-
-
-    
 }

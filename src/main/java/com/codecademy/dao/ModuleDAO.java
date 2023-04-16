@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 
 public interface ModuleDAO {
     ObservableList<Module> getAllModules();
-    ObservableList<Module> getModulesByCourse(String courseName);
     void addModule(Module module);
     void updateModule(Module module);
     void deleteModule(int followNumber);

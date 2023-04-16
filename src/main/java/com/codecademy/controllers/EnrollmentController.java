@@ -1,4 +1,5 @@
 package com.codecademy.controllers;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
@@ -33,10 +34,22 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * The EnrollmentController class is responsible for displaying a table view of
+ * all the enrollments,
+ * 
+ * allowing the user to add, edit, and delete enrollments as necessary.
+ */
 public class EnrollmentController {
-    
-    public static void display(){
-        
+
+    /**
+     * 
+     * Displays a table view of all the enrollments, allowing the user to add, edit,
+     * and delete enrollments as necessary.
+     */
+    public static void display() {
+
         DbConnection dbConnection = new DbConnection();
         EnrollmentDAO enrollmentDAO = new EnrollmentDAOImpl(dbConnection);
         Stage stage = new Stage();
@@ -46,7 +59,7 @@ public class EnrollmentController {
         stage.setResizable(false);
 
         Label enrollmentOverview = new Label("Enrollment overview");
-        enrollmentOverview.setFont(Font.font("Arial",FontWeight.BOLD ,30));
+        enrollmentOverview.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 
         FlowPane root = new FlowPane();
 
@@ -86,13 +99,13 @@ public class EnrollmentController {
         Button back = new Button("Back");
 
         HBox hBox = new HBox();
-        
+
         hBox.getChildren().addAll(add, edit, delete, back);
         hBox.setSpacing(25);
 
         add.setPrefSize(50, 30);
         edit.setPrefSize(50, 30);
-        delete.setPrefSize(80,30);
+        delete.setPrefSize(80, 30);
         back.setPrefSize(50, 30);
         table.setEditable(false);
 
@@ -103,9 +116,9 @@ public class EnrollmentController {
 
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(vbox);
-        
+
         Scene scene = new Scene(root);
-        
+
         add.setOnAction(e -> {
             AddEnrollmentController.display();
             stage.close();

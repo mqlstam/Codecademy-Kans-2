@@ -34,33 +34,43 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * This class is responsible for displaying the details of a selected course,
+ * 
+ * including recommended courses, the number of students who completed the
+ * course,
+ * 
+ * and the average progress per module for all students in the course.
+ * 
+ * It creates a JavaFX Stage and displays the course details in a TabPane.
+ * 
+ * The recommended courses and number of completed courses are retrieved from
+ * the CourseDAO.
+ * 
+ * The average progress per module is retrieved from the ModuleDAO.
+ * 
+ * The class also defines the event handlers for the Back buttons in each tab.
+ * 
+ */
+
 public class CourseStatistics {
+
+    private static Course course;
 
     /**
      * 
-     * This class is responsible for displaying the details of a selected course,
+     * Constructs a new CourseStatistics object with the given Course.
      * 
-     * including recommended courses, the number of students who completed the
-     * course,
-     * 
-     * and the average progress per module for all students in the course.
-     * 
-     * It creates a JavaFX Stage and displays the course details in a TabPane.
-     * 
-     * The recommended courses and number of completed courses are retrieved from
-     * the CourseDAO.
-     * 
-     * The average progress per module is retrieved from the ModuleDAO.
-     * 
-     * The class also defines the event handlers for the Back buttons in each tab.
-     * 
+     * @param course The course for which to display the statistics.
      */
-    private static Course course;
-
     public CourseStatistics(Course course) {
         this.course = course;
     }
 
+    /**
+     * Displays the course statistics in a new window.
+     */
     public static void display() {
         Stage stage = new Stage();
         stage.setTitle("Anhtuan Nguyen(2192526), Luuk beks(2192527), Miquel Stam(2192528)");

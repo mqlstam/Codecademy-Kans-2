@@ -1,6 +1,5 @@
 package com.codecademy.controllers;
 
-
 import com.codecademy.MainMenu;
 import com.codecademy.dao.CertificateDAO;
 import com.codecademy.dao.CertificateDAOimpl;
@@ -23,8 +22,26 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * This class represents a controller for displaying and managing certificates
+ * in a TableView.
+ * 
+ * It provides methods for displaying the certificates, adding a new
+ * certificate, editing an existing certificate, and deleting a certificate.
+ */
+
 public class CertificateController {
-    public static void display(){
+
+    /**
+     * 
+     * Displays a TableView with a list of certificates, along with buttons for
+     * adding, editing, and deleting certificates.
+     * 
+     * Allows the user to navigate back to the main menu.
+     */
+
+    public static void display() {
         Stage stage = new Stage();
         stage.setTitle("Anhtuan Nguyen(2192526), Luuk beks(2192527), Miquel Stam(2192528)");
         stage.setWidth(1000);
@@ -36,7 +53,7 @@ public class CertificateController {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         Label certificateOverview = new Label("Certificates overview");
-        certificateOverview.setFont(Font.font("Arial",FontWeight.BOLD ,30));
+        certificateOverview.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 
         Button add = new Button("Add");
         Button edit = new Button("Edit");
@@ -44,13 +61,13 @@ public class CertificateController {
         Button back = new Button("Back");
 
         HBox hBox = new HBox();
-        
+
         hBox.getChildren().addAll(add, edit, delete, back);
         hBox.setSpacing(25);
 
         add.setPrefSize(50, 30);
         edit.setPrefSize(50, 30);
-        delete.setPrefSize(80,30);
+        delete.setPrefSize(80, 30);
         back.setPrefSize(50, 30);
         table.setEditable(false);
 
@@ -67,7 +84,7 @@ public class CertificateController {
         employeeCol.setCellValueFactory(new PropertyValueFactory<Certificate, String>("Employee"));
 
         table.getColumns().addAll(certificateIDCol, gradeCol, employeeCol);
- 
+
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(10, 0, 0, 10));
@@ -75,9 +92,9 @@ public class CertificateController {
 
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(vbox);
-        
+
         Scene scene = new Scene(root);
-        
+
         add.setOnAction(e -> {
             AddCertificateController.display();
             stage.close();

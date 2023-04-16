@@ -23,8 +23,20 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+
+/**
+ * The AddStudentController class is responsible for controlling the "Add Student" form.
+ * It contains a method to display the form and handle the submission of the data.
+ */
 public class AddStudentController {
     private static String genderVal;
+
+    /**
+     * Displays the "Add Student" form and handles the submission of the data.
+     * This method creates a JavaFX stage and sets up a form with input fields for the user to fill in.
+     * When the user clicks the "Save" button, this method validates the input and adds a new student to the database.
+     * If any required fields are missing or the email address is invalid, an error message is displayed and the data is not submitted.
+     */
 
     public static void display() {
         StudentDAO studentDAO = new StudentDAOImpl(new DbConnection());

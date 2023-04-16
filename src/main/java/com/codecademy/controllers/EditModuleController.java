@@ -29,7 +29,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * This class is responsible for displaying a form to edit the details of a module.
+ */
 public class EditModuleController {
+
+       /**
+     * Displays the form to edit the details of a given module.
+     *
+     * @param module the module to be edited
+     */
     public static void display(Module module){
         ModuleDAO moduleDAO = new ModuleDAOImpl(new DbConnection());
         Stage stage = new Stage();

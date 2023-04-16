@@ -43,8 +43,11 @@ import javafx.stage.Stage;
 public class AddCourseController {
 
     private static String courseDifficulty;
-    private static int moduleId;
 
+    /**
+     * 
+     * Displays the UI for adding a new course.
+     */
     public static void display() {
 
         DbConnection dbConnection = new DbConnection();

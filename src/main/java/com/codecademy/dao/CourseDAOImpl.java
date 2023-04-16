@@ -14,13 +14,30 @@ import com.codecademy.database.DbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * 
+ * Implementation of the CourseDAO interface for accessing course data in a
+ * database.
+ */
 public class CourseDAOImpl implements CourseDAO {
     private DbConnection dbConnection;
 
+    /**
+     * 
+     * Constructs a CourseDAOImpl object with a specified DbConnection.
+     * 
+     * @param dbConnection the DbConnection object to use for database access
+     */
     public CourseDAOImpl(DbConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
 
+    /**
+     * 
+     * Retrieves a list of all courses in the database.
+     * 
+     * @return an ObservableList of Course objects
+     */
     @Override
     public ObservableList<Course> getCourses() {
         try (Connection db = dbConnection.getConnection()) {
@@ -31,9 +48,11 @@ public class CourseDAOImpl implements CourseDAO {
 
             while (result.next()) {
                 Difficulty difficulty;
-                if (result.getString("Difficulty").equals("Beginner") || result.getString("Difficulty").equals("BEGINNER")) {
+                if (result.getString("Difficulty").equals("Beginner")
+                        || result.getString("Difficulty").equals("BEGINNER")) {
                     difficulty = Difficulty.BEGINNER;
-                } else if (result.getString("Difficulty").equals("Advanced") || result.getString("Difficulty").equals("ADVANCED")) {
+                } else if (result.getString("Difficulty").equals("Advanced")
+                        || result.getString("Difficulty").equals("ADVANCED")) {
                     difficulty = Difficulty.ADVANCED;
                 } else {
                     difficulty = Difficulty.EXPERT;
@@ -48,6 +67,14 @@ public class CourseDAOImpl implements CourseDAO {
         }
         return null;
     }
+
+    /**
+     * 
+     * Retrieves a list of courses for a given student email address.
+     * 
+     * @param emailAddress the email address of the student
+     * @return a List of Course objects
+     */
 
     @Override
     public List<Course> getCoursesByStudentEmail(String emailAddress) {
@@ -73,6 +100,12 @@ public class CourseDAOImpl implements CourseDAO {
         return courses;
     }
 
+    /**
+     * 
+     * Retrieves a list of all course names in the database.
+     * 
+     * @return an ObservableList of Strings representing the course names
+     */
     @Override
     public ObservableList<String> getAllCourseNames() {
         try (Connection db = dbConnection.getConnection()) {
@@ -91,6 +124,12 @@ public class CourseDAOImpl implements CourseDAO {
         return null;
     }
 
+    /**
+     * 
+     * Adds a course to the database.
+     * 
+     * @param course the Course object to add
+     */
     @Override
     public void addCourse(Course course) {
         try (Connection db = dbConnection.getConnection()) {
@@ -108,6 +147,11 @@ public class CourseDAOImpl implements CourseDAO {
         }
     }
 
+    /**
+     * Updates an existing course in the database.
+     * 
+     * @param course The Course object representing the course to update.
+     */
     @Override
     public void updateCourse(Course course) {
         try (Connection db = dbConnection.getConnection()) {
@@ -125,44 +169,59 @@ public class CourseDAOImpl implements CourseDAO {
         }
     }
 
+    /**
+     * Deletes a course from the database. Throws an exception if the course has any
+     * associated enrollments.
+     * 
+     * @param course The Course object representing the course to delete.
+     * @throws Exception If the course has associated enrollments.
+     */
     @Override
     public void deleteCourse(Course course) throws Exception {
-        try (Connection db = dbConnection.getConnection()) {           
+        try (Connection db = dbConnection.getConnection()) {
             // Check if there are any enrollments for the course
-            PreparedStatement enrollmentCheck = db.prepareStatement("SELECT COUNT(*) FROM Enrollment WHERE CourseName = ?");
+            PreparedStatement enrollmentCheck = db
+                    .prepareStatement("SELECT COUNT(*) FROM Enrollment WHERE CourseName = ?");
             enrollmentCheck.setString(1, course.getCourseName());
             ResultSet enrollmentResult = enrollmentCheck.executeQuery();
             enrollmentResult.next();
             int enrollmentCount = enrollmentResult.getInt(1);
-            
+
             if (enrollmentCount > 0) {
                 throw new Exception("Cannot delete course with existing enrollments");
             }
-            
+
             // First, delete the corresponding rows from the Module table
             PreparedStatement moduleQuery = db.prepareStatement("DELETE FROM Module WHERE CourseName = ?");
             moduleQuery.setString(1, course.getCourseName());
             moduleQuery.executeUpdate();
-        
+
             // Next, delete the corresponding rows from the CourseRecommendation1 table
-            PreparedStatement recommendationQuery = db.prepareStatement("DELETE FROM CourseRecommendation1 WHERE CourseName = ?");
+            PreparedStatement recommendationQuery = db
+                    .prepareStatement("DELETE FROM CourseRecommendation1 WHERE CourseName = ?");
             recommendationQuery.setString(1, course.getCourseName());
             recommendationQuery.executeUpdate();
-            recommendationQuery = db.prepareStatement("DELETE FROM CourseRecommendation1 WHERE RecommendedCourseName = ?");
+            recommendationQuery = db
+                    .prepareStatement("DELETE FROM CourseRecommendation1 WHERE RecommendedCourseName = ?");
             recommendationQuery.setString(1, course.getCourseName());
             recommendationQuery.executeUpdate();
-        
+
             // Finally, delete the row from the Course table
             PreparedStatement courseQuery = db.prepareStatement("DELETE FROM Course WHERE CourseName = ?");
             courseQuery.setString(1, course.getCourseName());
             courseQuery.executeUpdate();
-    
+
         } catch (SQLException e) {
             System.out.println("Error in deleteCourse");
             e.printStackTrace();
         }
     }
 
+    /**
+     * Retrieves a list of the top 3 courses by number of certificates issued.
+     * 
+     * @return A List of the names of the top 3 certified courses.
+     */
     @Override
     public List<String> getTop3CertifiedCourses() {
         List<String> courses = new ArrayList<>();
@@ -180,6 +239,13 @@ public class CourseDAOImpl implements CourseDAO {
         return courses;
     }
 
+    /**
+     * Retrieves a list of recommended courses for a given course.
+     * 
+     * @param selectedCourse The name of the course to retrieve recommended courses
+     *                       for.
+     * @return A List of the names of recommended courses for the given course.
+     */
     @Override
     public List<String> getRecommendedCourses(String selectedCourse) {
         List<String> recommendedCourses = new ArrayList<>();
@@ -198,6 +264,12 @@ public class CourseDAOImpl implements CourseDAO {
         return recommendedCourses;
     }
 
+    /**
+     * Retrieves the number of students who have completed a given course.
+     * 
+     * @param courseName The name of the course to retrieve completion numbers for.
+     * @return The number of students who have completed the given course.
+     */
     @Override
     public int getNumCompletedCourses(String courseName) {
         int numCompleted = 0;

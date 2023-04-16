@@ -1,6 +1,5 @@
 package com.codecademy.controllers;
 
-
 import com.codecademy.dao.ContactPersonDAO;
 import com.codecademy.dao.ContactPersonDAOimpl;
 import com.codecademy.dao.ContentDAO;
@@ -33,8 +32,28 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * The AddModuleController class is responsible for displaying a window for
+ * adding a new module to the system.
+ * It allows the user to enter the necessary information about the new module,
+ * including the content ID, module title, version,
+ * contact person email, and course name. The user can then save the new module
+ * to the system or go back to the Module window.
+ * This class uses the ModuleDAOImpl, ContentDAOimpl, ContactPersonDAOimpl, and
+ * CourseDAOImpl classes to interact with the database.
+ */
 public class AddModuleController {
-    public static void display(){
+
+    /**
+     * Displays the add module window.
+     * The user can enter information about the new module such as the content,
+     * module title, version, contact person and course.
+     * The information is then validated and stored in the database.
+     * If the information is not valid, an error message will be displayed to the
+     * user.
+     * Once the module has been added, the module overview window will be displayed.
+     */
+    public static void display() {
         ModuleDAO moduleDAO = new ModuleDAOImpl(new DbConnection());
 
         Stage stage = new Stage();
@@ -42,7 +61,6 @@ public class AddModuleController {
         stage.setWidth(1000);
         stage.setHeight(800);
         stage.setResizable(false);
-        
 
         FlowPane root = new FlowPane();
 
@@ -63,8 +81,6 @@ public class AddModuleController {
         TextField moduleTitle = new TextField();
 
         TextField version = new TextField();
-        
-
 
         HBox contactBox = new HBox();
         Label contactPersonLabel = new Label("Choose contact person: ");
@@ -94,11 +110,10 @@ public class AddModuleController {
 
         moduleTitle.setPromptText("Module title");
         version.setPromptText("Version");
-        
-       
+
         Button back = new Button("Back");
         Button save = new Button("Save");
-      
+
         HBox hBox = new HBox();
         hBox.getChildren().addAll(save, back);
         hBox.setSpacing(70);
@@ -115,7 +130,6 @@ public class AddModuleController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
 
         save.setOnAction(e -> {
             float versionFloatValue = 0.0f;

@@ -34,8 +34,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * This class represents the statistics controller, responsible for displaying
+ * the statistics view.
+ * 
+ * The view displays the top 3 viewed webcasts, the top 3 courses with the most
+ * certificates, and
+ * 
+ * the gender with the most completed courses.
+ */
+
 public class StatisticsController {
 
+    /**
+     * 
+     * This method displays the statistics view.
+     */
     public static void display() {
         Stage stage = new Stage();
         stage.setTitle("Anhtuan Nguyen(2192526), Luuk beks(2192527), Miquel Stam(2192528)");
@@ -56,8 +71,6 @@ public class StatisticsController {
         List<String> top3Webcasts = webcastDAO.getTop3ViewedWebcasts();
         List<String> top3Courses = courseDAO.getTop3CertifiedCourses();
         double genderPercentage = enrollmentDAO.getCompletionPercentageByGender(null);
-
-        
 
         // Create the ListView and Back button for the Top 3 Viewed Webcasts tab
         FlowPane root = new FlowPane();
@@ -98,7 +111,8 @@ public class StatisticsController {
         coursesRoot.getChildren().addAll(coursesVbox);
 
         // Create the ChoiceBox and Label for the Completion Percentage by Gender tab
-        ChoiceBox<String> genderChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("Male", "Female", "Other"));
+        ChoiceBox<String> genderChoiceBox = new ChoiceBox<>(
+                FXCollections.observableArrayList("Male", "Female", "Other"));
         Label percentageLabel = new Label(String.format("%.2f%%", genderPercentage));
         percentageLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         percentageLabel.setAlignment(Pos.CENTER);
@@ -142,7 +156,6 @@ public class StatisticsController {
             MainMenu.display();
             stage.close();
         });
-
 
         stage.setScene(scene);
         stage.show();

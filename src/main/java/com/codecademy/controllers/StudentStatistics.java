@@ -36,14 +36,35 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * The StudentStatistics class is responsible for displaying statistical
+ * information
+ * 
+ * about a specific student, such as their certificates achieved and progress
+ * per module
+ * 
+ * for the courses they are enrolled in.
+ */
 public class StudentStatistics {
 
     private static Student student;
 
+    /**
+     * 
+     * Constructs a new StudentStatistics object with the specified student.
+     * 
+     * @param student the student for which the statistics are being displayed
+     */
     public StudentStatistics(Student student) {
         this.student = student;
     }
 
+    /**
+     * 
+     * Displays the statistical information for the specified student in a new
+     * window.
+     */
     public static void display() {
 
         // Create the stage and set its properties
@@ -122,13 +143,13 @@ public class StudentStatistics {
         courseComboBox.setOnAction(e -> {
             Course selectedCourse = courseComboBox.getValue();
             if (selectedCourse != null) {
-                List<ModuleProgress> moduleProgressList = moduleDAO.getAverageProgressPerModule(selectedCourse.getCourseName(),
+                List<ModuleProgress> moduleProgressList = moduleDAO.getAverageProgressPerModule(
+                        selectedCourse.getCourseName(),
                         student.getEmail());
                 tableView.setItems(FXCollections.observableArrayList(moduleProgressList));
             }
         });
 
-        
         // Add the tabs to the TabPane
         tabPane.getTabs().addAll(certificatesAchieved, progressPerModule);
 

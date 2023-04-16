@@ -31,9 +31,24 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * The StudentController class is responsible for displaying the student
+ * overview screen, which lists all the students in the system in a table.
+ * The class also provides functionality to add, edit, and delete students, as
+ * well as view statistics for a selected student.
+ */
 public class StudentController {
+    /**
+     * 
+     * Displays the student overview screen, which lists all the students in the
+     * system in a table.
+     * 
+     * Provides functionality to add, edit, and delete students, as well as view
+     * statistics for a selected student.
+     */
     public static void display() {
-        
+
         Stage stage = new Stage();
         stage.setTitle("Anhtuan Nguyen(2192526), Luuk beks(2192527), Miquel Stam(2192528)");
         stage.setWidth(1000);
@@ -51,26 +66,30 @@ public class StudentController {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setItems(list);
         TableColumn<Student, String> emailCol = new TableColumn<>("email");
-        emailCol.setCellValueFactory(new PropertyValueFactory<Student,String>("email"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<Student, String>("email"));
         TableColumn<Student, String> nameCol = new TableColumn<>("name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<Student,String>("name"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
         TableColumn<Student, LocalDate> birthdayCol = new TableColumn<>("birthday");
-        birthdayCol.setCellValueFactory(new PropertyValueFactory<Student,LocalDate>("birthDate"));
+        birthdayCol.setCellValueFactory(new PropertyValueFactory<Student, LocalDate>("birthDate"));
         TableColumn<Student, String> genderCol = new TableColumn<>("gender");
-        genderCol.setCellValueFactory(new PropertyValueFactory<Student,String>("gender"));
+        genderCol.setCellValueFactory(new PropertyValueFactory<Student, String>("gender"));
         TableColumn<Student, String> streetCol = new TableColumn<>("Street");
-        streetCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getStreet()));
+        streetCol.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getStreet()));
         TableColumn<Student, String> houseNumberCol = new TableColumn<>("House Number");
-        houseNumberCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getHouseNumber()));
+        houseNumberCol.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getHouseNumber()));
         TableColumn<Student, String> postalCodeCol = new TableColumn<>("Postal Code");
-        postalCodeCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getPostalCode()));
+        postalCodeCol.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getPostalCode()));
         TableColumn<Student, String> cityCol = new TableColumn<>("City");
         cityCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getCity()));
         TableColumn<Student, String> countryCol = new TableColumn<>("Country");
-        countryCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getCountry()));
-        table.getColumns().addAll(emailCol, nameCol, birthdayCol, genderCol, streetCol, houseNumberCol, postalCodeCol, cityCol, countryCol);
+        countryCol.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getCountry()));
+        table.getColumns().addAll(emailCol, nameCol, birthdayCol, genderCol, streetCol, houseNumberCol, postalCodeCol,
+                cityCol, countryCol);
         table.setPrefWidth(800);
-
 
         Button add = new Button("Add");
         Button edit = new Button("Edit");
